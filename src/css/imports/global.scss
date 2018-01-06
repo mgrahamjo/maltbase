@@ -1,0 +1,21 @@
+body {
+    margin: 0;
+    box-sizing: content-box;
+    color: $black;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10pt;
+    -webkit-tap-highlight-color: transparent;
+    background: $white;
+    font-weight: 200;
+}
+
+a {
+    color: $blue;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color $transition;
+
+    &:hover {
+        color: lighten($blue, 10%);
+    }
+}

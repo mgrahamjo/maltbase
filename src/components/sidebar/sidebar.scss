@@ -1,0 +1,53 @@
+.sidebar {
+    display: block;
+    width: 250px;
+    background-color: $black;
+    color: $white;
+    position: absolute;
+    min-height: 100%;
+}
+
+.nav-item {
+    padding: 20px;
+    cursor: pointer;
+    background-color: transparent;
+    transition: background-color $transition;
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    .ion-ios-arrow-forward {
+        margin-right: 10px;
+    }
+}
+
+.nav-group-items {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height $transition;
+}
+
+.nav-group.active {
+    background-color: rgba(0, 0, 0, 0.1);
+
+    .nav-group-name {
+        font-weight: bold;
+    }
+
+    .nav-group-items {
+        max-height: 1000px;
+    }
+}
+
+.nav-group-name span {
+    margin-right: 10px;
+    font-size: 14pt;
+    position: relative;
+    top: 2px;
+}
+
+.nav-item.active,
+.nav-item:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}

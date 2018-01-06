@@ -1,0 +1,28 @@
+/* imports */
+@import './imports/variables';
+@import './imports/global';
+
+/* components */
+@import '../components/sidebar/sidebar';
+
+/* views */
+@import '../views/brew/my-brews/my-brews';
+
+.clear::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.view {
+    padding: 20px 40px;
+    margin-left: 250px;
+}
