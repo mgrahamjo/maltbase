@@ -15,17 +15,41 @@ const app = uav.component(`
     view: null
 }, '#app');
 
+app.logout = () => {
+
+    localStorage.removeItem('token');
+
+    localStorage.removeItem('profile');
+
+    app.load();
+
+};
+
 const lock = new Auth0Lock('npoVqu0vKZeJgBec_S04_DjpqvntZ2xa', 'maltbase.auth0.com', {
-    autoclose: true,
-    autofocus: true,
-    closable: false,
-    autoParseHash: false,
-    responseType: 'token'
+    display: {
+        autoclose: true,
+        autofocus: true,
+        closable: false
+    },
+    auth: {
+        autoParseHash: false,
+        responseType: 'token id_token',
+        connectionScopes: {
+            google: ['openid', 'email', 'given_name', 'picture']
+        }
+    }
 });
 
 function handleError(error) {
 
-    alert(error);
+    console.error(error);
+
+    lock.show({
+        flashMessage: {
+            type: 'error',
+            text: 'Something went wrong.'
+        }
+    });
 
 }
 
@@ -33,25 +57,17 @@ function resumeAuth() {
 
     lock.resumeAuth(location.hash, (error, authResult) => {
 
+        location.hash = '';
+
         if (error) {
 
             return handleError(error);
 
         }
 
-        localStorage.setItem('accessToken', authResult.accessToken);
+        localStorage.setItem('token', authResult.idToken);
 
-        lock.getUserInfo(authResult.accessToken, (error2, profile) => {
-
-            if (error2) {
-
-                return handleError(error2);
-
-            }
-
-            localStorage.setItem('profile', JSON.stringify(profile));
-
-        });
+        localStorage.setItem('profile', JSON.stringify(authResult.idTokenPayload));
 
     });
 
@@ -65,11 +81,11 @@ router.init(params => {
 
     app.sidebar = sidebar(group, view);
 
-    if (localStorage.getItem('accessToken')) {
+    if (localStorage.getItem('token')) {
 
         app.view = routes[group].views[view].view();
 
-    } else if (params.access_token) {
+    } else if (params.id_token) {
 
         resumeAuth();
 

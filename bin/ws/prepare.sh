@@ -6,6 +6,6 @@ mkdir -p dist
 
 cp -rf src/images dist/images
 
-cp -rf src/fonts dist/fonts
-
 cp src/index.html dist/index.html
+
+cp -rf src/app dist/app

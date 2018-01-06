@@ -1,10 +1,24 @@
+const app = require('app');
+
+const apiURL = location.origin === 'https://maltbase.com' ? 'https://maltbase.com' : 'http://localhost:8081';
+
 function ajax(method) {
 
-    return url => new Promise((resolve, reject) => {
+    return url => new Promise(resolve => {
 
         const xhr = new XMLHttpRequest();
 
-        xhr.open(method, url);
+        const token = localStorage.getItem('token');
+
+        if (!token) {
+
+            return console.error('Tokenless request attempted.');
+
+        }
+
+        xhr.open(method, apiURL + url);
+
+        xhr.setRequestHeader('Authorization', token);
 
         xhr.onload = () => {
 
@@ -24,9 +38,13 @@ function ajax(method) {
 
                 resolve(data);
 
+            } else if (xhr.status === 404) {
+
+                app.logout();
+
             } else {
 
-                reject(xhr.statusText);
+                alert(xhr.responseText);
 
             }
 

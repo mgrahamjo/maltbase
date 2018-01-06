@@ -12,8 +12,11 @@
     cursor: pointer;
     background-color: transparent;
     transition: background-color $transition;
+    display: block;
+    color: $white;
 
     &:hover {
+        color: $white;
         background-color: rgba(0, 0, 0, 0.1);
     }
 

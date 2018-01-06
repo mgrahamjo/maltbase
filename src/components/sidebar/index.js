@@ -7,7 +7,9 @@ function sidebar(group, view) {
 
     sidebar.component = uav.component(`
     <div class="sidebar">
-        <div class="nav-item logo"><strong>MALT</strong>BASE</div>
+        <a class="nav-item logo" href="/">
+            <strong>MALT</strong>BASE
+        </a>
         <div u-for="group in Object.keys(routes)">
             <div u-class="nav-group {activeGroup === group && 'active'}">
                 <div class="nav-item nav-group-name" u-onclick={toggleGroup(group)}>
