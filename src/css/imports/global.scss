@@ -1,12 +1,19 @@
 body {
     margin: 0;
     box-sizing: content-box;
-    color: $black;
+    color: white;
     font-family: 'Montserrat', sans-serif;
     font-size: 10pt;
     -webkit-tap-highlight-color: transparent;
     background: $white;
     font-weight: 200;
+}
+
+#app {
+    background: linear-gradient(135deg, #4498d9, #585cf4);
+    position: absolute;
+    min-height: 100%;
+    width: 100%;
 }
 
 a {

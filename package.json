@@ -44,6 +44,7 @@
     "firebase": "^4.8.1",
     "promise-polyfill": "^6.0.2",
     "uav": "^2.0.8",
-    "uav-router": "^0.0.6"
+    "uav-router": "^0.0.6",
+    "xml2js": "^0.4.19"
   }
 }

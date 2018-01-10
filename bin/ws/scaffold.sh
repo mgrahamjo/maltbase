@@ -15,14 +15,14 @@ import uav from 'uav';
 
 function ${camel_case_name}() {
 
-    ${camel_case_name}.component = uav.component(\`
+    const component = uav.component(\`
     <div class="${dashed_name}">
         <div>{foo}</div>
     </div>\`, {
         foo: 'bar'
     });
 
-    return ${camel_case_name}.component;
+    return component;
 
 }
 

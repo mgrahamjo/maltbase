@@ -1,7 +1,7 @@
 import 'util/polyfills';
 import uav from 'uav';
 import router from 'uav-router';
-import sidebar from 'components/sidebar';
+import menu from 'components/menu';
 import routes from 'util/routes';
 import firebase from 'firebase/app';
 import 'firebase/auth';
@@ -19,31 +19,27 @@ firebase.initializeApp(config);
 
 const app = uav.component(`
 <div class="wrapper">
-    {sidebar}
+    {menu}
     {view}
 </div>
 `, {
-    sidebar: null,
+    menu: menu(),
     view: null
 }, '#app');
 
 router.init(params => {
 
-    const group = params.group || 'brew';
-
-    const view = params.view || 'my-brews';
-
-    app.sidebar = sidebar(group, view);
+    app.view = routes[params.view || 'search']();
 
     firebase.auth().onAuthStateChanged(user => {
 
         if (user) {
 
-            app.view = routes[group].views[view].view();
+            // Do something for users
 
         } else {
             
-            firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider());
+            // firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider());
 
         }
 

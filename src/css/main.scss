@@ -3,10 +3,10 @@
 @import './imports/global';
 
 /* components */
-@import '../components/sidebar/sidebar';
+@import '../components/menu/menu';
 
 /* views */
-@import '../views/brew/my-brews/my-brews';
+@import '../views/search/search';
 
 .clear::after {
     content: "";
