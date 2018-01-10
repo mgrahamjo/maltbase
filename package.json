@@ -40,10 +40,8 @@
     "webpack": "^3.6.0"
   },
   "dependencies": {
-    "auth0-lock": "^11.0.1",
     "classlist-polyfill": "^1.0.3",
-    "jsonwebtoken": "^8.1.0",
-    "jwks-rsa": "^1.2.1",
+    "firebase": "^4.8.1",
     "promise-polyfill": "^6.0.2",
     "uav": "^2.0.8",
     "uav-router": "^0.0.6"

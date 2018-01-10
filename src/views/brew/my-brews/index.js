@@ -11,13 +11,13 @@ function myBrews() {
         brews: null
     });
 
-    ajax.get('/my-brews').then(data => {
+    // ajax.get('/my-brews').then(data => {
 
-        myBrews.component.brews = JSON.stringify(data);
+    //     myBrews.component.brews = JSON.stringify(data);
 
-        console.log(data);
+    //     console.log(data);
 
-    });
+    // });
 
     return myBrews.component;
 

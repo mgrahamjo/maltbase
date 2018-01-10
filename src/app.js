@@ -2,8 +2,20 @@ import 'util/polyfills';
 import uav from 'uav';
 import router from 'uav-router';
 import sidebar from 'components/sidebar';
-import Auth0Lock from 'auth0-lock';
 import routes from 'util/routes';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+
+const config = {
+    apiKey: 'AIzaSyAOMtVuUPIx50vPROVW7DvuHH0qPrrFCPY',
+    authDomain: 'maltbase-5cd96.firebaseapp.com',
+    databaseURL: 'https://maltbase-5cd96.firebaseio.com',
+    projectId: 'maltbase-5cd96',
+    storageBucket: '',
+    messagingSenderId: '840628496812'
+};
+
+firebase.initializeApp(config);
 
 const app = uav.component(`
 <div class="wrapper">
@@ -15,64 +27,6 @@ const app = uav.component(`
     view: null
 }, '#app');
 
-app.logout = () => {
-
-    localStorage.removeItem('token');
-
-    localStorage.removeItem('profile');
-
-    app.load();
-
-};
-
-const lock = new Auth0Lock('npoVqu0vKZeJgBec_S04_DjpqvntZ2xa', 'maltbase.auth0.com', {
-    display: {
-        autoclose: true,
-        autofocus: true,
-        closable: false
-    },
-    auth: {
-        autoParseHash: false,
-        responseType: 'token id_token',
-        connectionScopes: {
-            google: ['openid', 'email', 'given_name', 'picture']
-        }
-    }
-});
-
-function handleError(error) {
-
-    console.error(error);
-
-    lock.show({
-        flashMessage: {
-            type: 'error',
-            text: 'Something went wrong.'
-        }
-    });
-
-}
-
-function resumeAuth() {
-
-    lock.resumeAuth(location.hash, (error, authResult) => {
-
-        location.hash = '';
-
-        if (error) {
-
-            return handleError(error);
-
-        }
-
-        localStorage.setItem('token', authResult.idToken);
-
-        localStorage.setItem('profile', JSON.stringify(authResult.idTokenPayload));
-
-    });
-
-}
-
 router.init(params => {
 
     const group = params.group || 'brew';
@@ -81,19 +35,21 @@ router.init(params => {
 
     app.sidebar = sidebar(group, view);
 
-    if (localStorage.getItem('token')) {
+    firebase.auth().onAuthStateChanged(user => {
 
-        app.view = routes[group].views[view].view();
+        if (user) {
 
-    } else if (params.id_token) {
+            app.view = routes[group].views[view].view();
 
-        resumeAuth();
+        } else {
+            
+            firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider());
 
-    } else {
+        }
 
-        lock.show();
+    });
 
-    }
+    firebase.auth().getRedirectResult();
 
 });
 
